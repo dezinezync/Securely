@@ -115,6 +115,22 @@ if (![self propertyExists:key]) return defaultValue; \
     return ((jsonValue ==nil) ? [NSNull null] : [jsonValue objectFromJSONString]);
 }
 
+/* 
+*	Custom JSON Parse and Stringify Methods
+*	By @dezinezync (in custom fork)
+*/
+
+-(id)parse:(id)args
+{
+	ENSURE_SINGLE_ARG_OR_NIL(args,NSString);
+	return [[TiUtils stringValue:args] objectFromJSONString];
+}
+
+-(NSString *)stringify:(id)args
+{
+	return [[args objectAtIndex:0] JSONString];
+}
+
 #define SETSPROP \
 ENSURE_TYPE(args,NSArray);\
 NSString *key = [args objectAtIndex:0];\
