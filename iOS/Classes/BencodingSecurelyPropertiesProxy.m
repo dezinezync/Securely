@@ -122,13 +122,26 @@ if (![self propertyExists:key]) return defaultValue; \
 
 -(id)parse:(id)args
 {
-	ENSURE_SINGLE_ARG_OR_NIL(args,NSString);
-	return [[TiUtils stringValue:args] objectFromJSONString];
+	ENSURE_SINGLE_ARG(args, NSString);
+    
+    __block NSObject *data = nil;
+    
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        data = [args objectFromJSONString];
+    });
+    
+    return data;
 }
 
 -(NSString *)stringify:(id)args
 {
-	return [[args objectAtIndex:0] JSONString];
+	__block NSString *data = nil;
+    
+    dispatch_sync(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+        data = [[args objectAtIndex:0] JSONString];
+    });
+    
+    return data;
 }
 
 #define SETSPROP \
