@@ -15,4 +15,4 @@ name: Securely
 moduleid: bencoding.securely
 guid: 36a465bb-c79d-4c6c-b90c-a5e14a7e817b
 platform: iphone
-minsdk: 3.1.2.GA
+minsdk: 3.1.3.GA
